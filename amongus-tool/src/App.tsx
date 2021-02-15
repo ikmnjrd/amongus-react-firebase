@@ -1,24 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import Slider from '@material-ui/core/Slider';
+import Divider from '@material-ui/core/Divider';
+import MainContent from "./MainContent";
 
-function App() {
+
+const App = () => {
+  
+  
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <header className="ly_header">
+        <div className="ly_header_inner">
+          <div className="bl_header_title">
+            among us tool by ikeda
+          </div>
+
+        </div>
+        {/* ly_header_inner --> */}
       </header>
+      {/* ly_header --> */}
+      
+
+      <MainContent />
     </div>
   );
 }
