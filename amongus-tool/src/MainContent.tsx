@@ -39,7 +39,14 @@ export default function MainContent() {
     }
 
     const entry_player_buttons = players.map((crew_color, index) => {
-        return <img key={index} src={`./img/${crew_color}.png`} width="50" onClick={() => selected_players(crew_color)} />
+        return (
+            <img 
+                key={index} 
+                src={`./img/${crew_color}.png`} 
+                width="50" 
+                className={ !entryCrew.includes(crew_color) ? "img-mask" : "" }
+                onClick={() => selected_players(crew_color)} 
+            />);
     });
 
     const term_headline = [];
