@@ -4,6 +4,23 @@ import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import TextField from '@material-ui/core/TextField';
 import Input from '@material-ui/core/Input';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
+
+const CustomSlider = withStyles({
+    rail: {
+        backgroundImage: "linear-gradient(to left, #000, #fff)"
+    },
+    track: {
+        backgroundImage: "linear-gradient(to left , #999, #fff)"
+    },
+    thumb: {
+        backgroundColor: '#fff',
+        border: '2px solid #999',
+        '&:focus, &:hover, &$active': {
+            boxShadow: '0px 0px 0px 10px rgb(0 0 0 / 10%)'
+        },
+    },
+})(Slider);
 
 
 export default function MainContent() {
@@ -55,7 +72,7 @@ export default function MainContent() {
 
     for(let i =1; i<= term; i++){
         term_headline.push(
-            <div className="bl_term" key={i}>
+            <div className="bl_term bl_term--headline" key={i}>
                 {`Term${i}`}
             </div>
         )
@@ -106,7 +123,11 @@ export default function MainContent() {
             <div className="bl_crew--row" key={index}>
                 <div className="bl_crew--headline">
                     <img src={`./img/${deadCrew.includes(crew) ? crew+"-dead" : crew}.png`} width="100" height="130" />
-                    <Slider />
+                    <CustomSlider
+                        // value={value}
+                        // onChange={handleChange}
+                        aria-labelledby="continuous-slider"
+                    />
                     <Input placeholder="name" inputProps={{ 'aria-label': 'name' }} />
                 </div>
                 {/* bl_crew--headline */}

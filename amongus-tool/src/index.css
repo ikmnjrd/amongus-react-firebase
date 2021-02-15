@@ -33,9 +33,7 @@ code {
   color: #fff;
 }
 .ly_content {
-  max-width: 1230px;
-  padding-right: 50px;
-  padding-left: 50px;
+  
 }
 
 .bl_main{
@@ -50,7 +48,8 @@ code {
 .bl_crew--headline {
   height: 220px;
   width: 80%;
-  padding: 0 10% 0 10%;
+  padding: 10px 10% 0 10%;
+  border-bottom: 2px solid rgba(0,0,0,.3);
   position: -webkit-sticky;
   position: sticky;
   top: 0;
@@ -71,6 +70,9 @@ code {
   flex-direction: column;
   justify-content: space-around;
   border-top: 1px solid rgba(0, 0, 0, 0.5);
+}
+.bl_term--headline {
+  padding-left: 10px;
 }
 
 .img-mask {
