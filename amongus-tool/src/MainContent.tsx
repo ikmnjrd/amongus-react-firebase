@@ -3,6 +3,8 @@ import Slider from '@material-ui/core/Slider';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import TextField from '@material-ui/core/TextField';
+import Input from '@material-ui/core/Input';
+
 
 export default function MainContent() {
     const [term, setTerm] = useState(1);
@@ -105,6 +107,7 @@ export default function MainContent() {
                 <div className="bl_crew--headline">
                     <img src={`./img/${deadCrew.includes(crew) ? crew+"-dead" : crew}.png`} width="100" height="130" />
                     <Slider />
+                    <Input placeholder="name" inputProps={{ 'aria-label': 'name' }} />
                 </div>
                 {/* bl_crew--headline */}
                 {terms}
@@ -118,12 +121,11 @@ export default function MainContent() {
                 {entry_player_buttons}
             </div>
 
-            <button onClick={() => {setTerm(term+1)}}>new term</button>
-            <button onClick={() => {setTerm(1); setDeadCrew([]); }}>new game</button>
-
             <div className="bl_main">
                 <div className="bl_crew" >
                     <div className="bl_crew--headline">
+                        <button style={{marginTop: 10, marginBottom: 10}} onClick={() => {setTerm(term+1)}}>new term</button>
+                        <button onClick={() => {setTerm(1); setDeadCrew([]); }}>new game</button>
                     </div>
                 {term_headline}
             </div>

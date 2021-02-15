@@ -48,12 +48,14 @@ code {
   min-width: 100px;
 }
 .bl_crew--headline {
-  height: 200px;
-  width: 100px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  height: 220px;
+  width: 80%;
+  padding: 0 10% 0 10%;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 2;
 }
 
 .bl_select-player {
