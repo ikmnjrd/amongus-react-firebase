@@ -25,12 +25,18 @@ const CustomSlider = withStyles({
     },
 })(Slider);
 
+type Dict = { [key: string]: number };
+
+
 
 export default function MainContent() {
     const [term, setTerm] = useState(3);
     const [terms, setTerms] = useState<JSX.Element[]>([]);
     const [entryCrew, setEntryCrew] = useState(["black", "blue", "brown", "cyan", "green"]);
     const [deadCrew, setDeadCrew] = useState<string[]>([]);
+
+    const [crewSlider, setCrewSlider] = useState<Dict>({black : 50, blue : 50, brown : 50, cyan : 50, green : 50, lime : 50,
+                                            orange : 50, pink : 50, purple : 50, red : 50, white : 50, yellow : 50 });
 
     const players = ["black", "blue", "brown", "cyan", "green", "lime", "orange", "pink", "purple", "red", "white", "yellow"];
 
@@ -62,6 +68,25 @@ export default function MainContent() {
             setDeadCrew(new_deadCrew);
         }
     }
+    const handleClickNewGame = ():void => {
+        setTerm(0);
+        setDeadCrew([]);
+        
+        for(let i=0; i < players.length; i++){
+            setCrewSlider(prev => ({
+                ...prev,
+                [players[i]] : 50
+            }));
+        }
+    }
+    // anyで諦めた
+    // https://qiita.com/Takepepe/items/f1ba99a7ca7e66290f24
+    const handleChangeCrewSlider = (event :any, crew :string ):void => {
+        setCrewSlider(prev => ({
+            ...prev,
+            [crew]: event.target.value
+        }));
+    }
 
     const ScrollToBottom = ():void => {
         window.setTimeout(() => {
@@ -71,6 +96,10 @@ export default function MainContent() {
         }, 400);
         
     }
+
+    /* -----------------------------------  */
+    /* -----------JSX.Element-------------  */
+    /* -----------------------------------  */
 
     const entry_player_buttons = players.map((crew_color, index) => {
         return (
@@ -88,10 +117,16 @@ export default function MainContent() {
             <div className="bl_crew--row" key={index}>
                 <div className="bl_crew--headline">
                     <img src={`./img/${deadCrew.includes(crew) ? crew+"-dead" : crew}.png`} width="100" height="130" />
-                    <CustomSlider
-                        // value={value}
-                        // onChange={handleChange}
+                    {/* <CustomSlider
+                        // value={crewSlider[crew].value}
+                        // value={20}
+                        onChange={(e) => {handleChangeCrewSlider(e, crew)}}
                         aria-labelledby="continuous-slider"
+                    /> */}
+                    <input type="range"
+                        name="range"
+                        value={crewSlider[crew]}
+                        onChange={(e) => {handleChangeCrewSlider(e, crew)}}
                     />
                     <Input placeholder="name" inputProps={{ 'aria-label': 'name' }} />
                 </div>
@@ -120,7 +155,6 @@ export default function MainContent() {
 
     const generateTermRows = (col:number) => {        
         const term_row: JSX.Element[] = [];
-        const static_term  = term;
 
         term_row.push(
             <div className="bl_term_cell_wrapper">
@@ -181,7 +215,7 @@ export default function MainContent() {
                 <div className="bl_main_head">
                     <div className="bl_main_head_button">
                         <button style={{marginTop: 10, marginBottom: 10}} onClick={() => {setTerm(term+1)}}>new term</button>
-                        <button onClick={() => {setTerm(1); setDeadCrew([]); }}>new game</button>
+                        <button onClick={() => { handleClickNewGame()}}>new game</button>
                     </div>
                     {entry_crew_main}
                 </div>

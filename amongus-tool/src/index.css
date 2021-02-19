@@ -47,7 +47,7 @@ code {
   position: -webkit-sticky;
   position: sticky;
   top: 0;
-  background-color: white;
+  background-color: ghostwhite;
   z-index: 2;
 }
 .bl_main_head_button {
@@ -67,7 +67,7 @@ code {
 }
 
 .bl_terms_table {
-  background-color: rgb(255, 241, 255);
+  background-color: rgb(255, 255, 255);
 }
 .bl_term_row {
   display: flex;
