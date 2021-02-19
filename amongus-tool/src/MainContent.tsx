@@ -4,6 +4,9 @@ import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import TextField from '@material-ui/core/TextField';
 import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 
 const CustomSlider = withStyles({
@@ -24,11 +27,23 @@ const CustomSlider = withStyles({
 
 
 export default function MainContent() {
-    const [term, setTerm] = useState(1);
-    const [entryCrew, setEntryCrew] = useState(["black", "blue", "brown", "cyan"]);
+    const [term, setTerm] = useState(3);
+    const [terms, setTerms] = useState<JSX.Element[]>([]);
+    const [entryCrew, setEntryCrew] = useState(["black", "blue", "brown", "cyan", "green"]);
     const [deadCrew, setDeadCrew] = useState<string[]>([]);
 
     const players = ["black", "blue", "brown", "cyan", "green", "lime", "orange", "pink", "purple", "red", "white", "yellow"];
+
+    const area_map = {  skeld: ["カフェテリア", "ウェポン", "ナビゲーション", "酸素ルーム", "シールド", "通信室", "ストレージ",
+                                "アドミン", "エレクトリカル", "ロワーエンジン", "セキュリティ", "リアクター", "アッパーエンジン",  "メッドベイ" ]
+                        ,miraHQ: ["ランチャーパッド", "医療室", "通信", "ロッカールーム", "除染通路", "リアクター", "研究室", 
+                                "アドミン", "オフィス", "音質", "カフェテリア", "バルコニー", "ストレージ"]
+                    };
+
+    React.useEffect(() => {
+        generateTermCol();
+        ScrollToBottom();
+    }, [term]) 
 
     const selected_players = (color: string) :void => {
         if (!entryCrew.includes(color)){
@@ -68,57 +83,7 @@ export default function MainContent() {
             />);
     });
 
-    const term_headline = [];
-
-    for(let i =1; i<= term; i++){
-        term_headline.push(
-            <div className="bl_term bl_term--headline" key={i}>
-                {`Term${i}`}
-            </div>
-        )
-    }
-
-
     const entry_crew_main = entryCrew.map((crew, index) =>{
-        const terms = [];
-
-        for(let i =1; i<= term; i++){
-            if (!deadCrew.includes(crew)){
-                terms.push(
-                    <div className="bl_term" 
-                        key={index * 1000 + i} 
-                        onClick={() => {
-                            if(i === term){
-                                setTerm(term+1);
-                                ScrollToBottom();
-                            }
-                        }}>
-                        <TextField
-                            id="outlined-textarea"
-                            label="free space"
-                            placeholder=""
-                            multiline
-                            rows={3}
-                            variant="outlined"
-                        />
-                        <FormControlLabel
-                            control={
-                                <Checkbox
-                                    disabled={deadCrew.includes(crew) ? true : false}
-                                    color="default"
-                                    inputProps={{ 'aria-label': 'checkbox with default color' }}
-                                    onClick={() => {handleChangeDead(crew)}}
-                                />
-                            }
-                            label="Dead"
-                        />
-                    </div>
-                );
-            } else {
-                terms.push(<div className="bl_term" key={index * 1000 + i} />)
-            }
-        }
-
         return (
             <div className="bl_crew--row" key={index}>
                 <div className="bl_crew--headline">
@@ -131,11 +96,81 @@ export default function MainContent() {
                     <Input placeholder="name" inputProps={{ 'aria-label': 'name' }} />
                 </div>
                 {/* bl_crew--headline */}
-                {terms}
             </div>
         );
-    });
+    });    
 
+
+    const generateTermCol = () => {
+        const term_row: JSX.Element[] = [];
+
+        for(let row=0; row< term ; row++){
+            const el = generateTermRows(row);
+            term_row.push(el);
+        }
+
+        setTerms(term_row);
+    }
+
+    let select_box = area_map.skeld.map((room, index) =>{
+        return <option value={index}>{room}</option>
+    });
+    select_box.unshift(<option value="0"></option>);
+
+
+    const generateTermRows = (col:number) => {        
+        const term_row: JSX.Element[] = [];
+        const static_term  = term;
+
+        term_row.push(
+            <div className="bl_term_cell_wrapper">
+                <div className="bl_term_col_head">
+                    {`Term${col + 1}`}
+                </div>
+            </div>
+        );
+
+        for(let row=0; row < entryCrew.length; row++){
+            term_row.push(
+                <div className="bl_term_cell_wrapper">
+                    <div className="bl_term_cell" key={row} >
+                        <TextField
+                            id="outlined-textarea"
+                            label="free space"
+                            placeholder=""
+                            multiline
+                            rows={3}
+                            variant="outlined"
+                        />
+                        <select name="area">
+                            {select_box}
+                        </select>
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                    color="default"
+                                    inputProps={{ 'aria-label': 'checkbox with default color' }}
+                                    onClick={() => {handleChangeDead(entryCrew[row])}}
+                                />}
+                            label="Dead"
+                        />
+                    </div>
+                </div>
+            );
+        }
+
+        return (
+            col + 1 == term ? 
+                <div className={"bl_term_row"} onClick={() => {setTerm(term + 1)}}>
+                    {term_row}
+                </div> : 
+                <div className={"bl_term_row"}>
+                    {term_row}
+                </div> 
+        );
+    }
+
+    // main renderer
     return (
         <div className="ly_content">
             <div className="bl_select-player">
@@ -143,15 +178,16 @@ export default function MainContent() {
             </div>
 
             <div className="bl_main">
-                <div className="bl_crew" >
-                    <div className="bl_crew--headline">
+                <div className="bl_main_head">
+                    <div className="bl_main_head_button">
                         <button style={{marginTop: 10, marginBottom: 10}} onClick={() => {setTerm(term+1)}}>new term</button>
                         <button onClick={() => {setTerm(1); setDeadCrew([]); }}>new game</button>
                     </div>
-                {term_headline}
-            </div>
-        
-            {entry_crew_main}
+                    {entry_crew_main}
+                </div>
+                <div className="bl_terms_table">
+                    { terms }
+                </div>
             </div>
         </div>
     );

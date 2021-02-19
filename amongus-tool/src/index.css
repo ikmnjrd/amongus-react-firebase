@@ -32,23 +32,17 @@ code {
 .bl_header_title {
   color: #fff;
 }
-.ly_content {
-  
-}
 
 .bl_main{
   background-color: azure;
-  display: flex;
-  justify-content: space-between;
 }
 
 .bl_crew--row {
   min-width: 100px;
 }
-.bl_crew--headline {
-  height: 220px;
-  width: 80%;
-  padding: 10px 10% 0 10%;
+.bl_main_head {
+  display: flex;
+  justify-content: space-between;
   border-bottom: 2px solid rgba(0,0,0,.3);
   position: -webkit-sticky;
   position: sticky;
@@ -56,24 +50,46 @@ code {
   background-color: white;
   z-index: 2;
 }
+.bl_main_head_button {
+  max-width: 50px;
+}
+.bl_crew--headline {
+  height: 220px;
+  width: 80%;
+  padding: 10px 10% 0 10%;
+}
 
 .bl_select-player {
   display: flex;
   background-color: bisque;
-  display: flex;
   justify-content: space-around;
+  flex-wrap: wrap;
 }
 
-.bl_term {
+.bl_terms_table {
+  background-color: rgb(255, 241, 255);
+}
+.bl_term_row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0 10px 0;
+  border-top: 1px solid rgba(0,0,0, .5);
+}
+.bl_term_col_head {
+  max-width: 50px
+}
+.bl_term_cell_wrapper {
   height: 150px;
+}
+.bl_term_cell {
+  width: 90%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  border-top: 1px solid rgba(0, 0, 0, 0.5);
 }
-.bl_term--headline {
-  padding-left: 10px;
-}
+
+
+
 
 .img-mask {
   mask-image: radial-gradient(rgba(0, 0, 0, 0.26), transparent 100%);
