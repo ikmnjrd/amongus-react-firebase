@@ -155,7 +155,7 @@ export default function MainContent() {
                         onChange={(e) => {handleChangeCrewSlider(e, crew)}}
                         aria-labelledby="continuous-slider"
                     /> */}
-                    <input 
+                    <input
                         type="range"
                         name="range"
                         value={crewSlider[crew]}
