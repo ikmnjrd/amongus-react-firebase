@@ -40,6 +40,15 @@ code {
 .bl_crew--row {
   min-width: 100px;
 }
+.bl_crew--row_range {
+  width: 100%;
+}
+.bl_term_row:nth-child(odd) {
+  background-color: rgba(206, 208, 245, 0.5);
+}
+.bl_term_row:nth-child(even) {
+  background-color: rgba(211, 210, 172, 0.8);
+}
 .bl_main_head {
   display: flex;
   justify-content: space-between;
@@ -52,6 +61,10 @@ code {
 }
 .bl_main_head_button {
   max-width: 50px;
+  min-width: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
 }
 .bl_crew--headline {
   height: 220px;
@@ -76,7 +89,8 @@ code {
   border-top: 1px solid rgba(0,0,0, .5);
 }
 .bl_term_col_head {
-  max-width: 50px
+  max-width: 50px;
+  min-width: 50px;
 }
 .bl_term_cell_wrapper {
   height: 150px;

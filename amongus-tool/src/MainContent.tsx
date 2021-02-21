@@ -9,6 +9,11 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 
+
+
+/* -----------------------------------  */
+/* ----------グローバル変数-------------  */
+/* -----------------------------------  */
 const CustomSlider = withStyles({
     rail: {
         backgroundImage: "linear-gradient(to left, #000, #fff)"
@@ -26,17 +31,26 @@ const CustomSlider = withStyles({
 })(Slider);
 
 type Dict = { [key: string]: number };
+type Emer = { [key: string]: boolean };
 
 
 
 export default function MainContent() {
-    const [term, setTerm] = useState(3);
+    /* -----------------------------------  */
+    /* -----------  変数宣言  -------------  */
+    /* -----------------------------------  */
+    const [term, setTerm] = useState(1);
     const [terms, setTerms] = useState<JSX.Element[]>([]);
     const [entryCrew, setEntryCrew] = useState(["black", "blue", "brown", "cyan", "green"]);
     const [deadCrew, setDeadCrew] = useState<string[]>([]);
 
     const [crewSlider, setCrewSlider] = useState<Dict>({black : 50, blue : 50, brown : 50, cyan : 50, green : 50, lime : 50,
                                             orange : 50, pink : 50, purple : 50, red : 50, white : 50, yellow : 50 });
+    const [crewEmergency, setCrewEmergency] = useState<Emer>({black : false, blue : false, brown : false, cyan : false, green : false, lime : false,
+        orange : false, pink : false, purple : false, red : false, white : false, yellow : false });
+    const [crewLife, setCrewLife] = useState<Emer>({black : false, blue : false, brown : false, cyan : false, green : false, lime : false,
+        orange : false, pink : false, purple : false, red : false, white : false, yellow : false });
+
 
     const players = ["black", "blue", "brown", "cyan", "green", "lime", "orange", "pink", "purple", "red", "white", "yellow"];
 
@@ -46,10 +60,15 @@ export default function MainContent() {
                                 "アドミン", "オフィス", "音質", "カフェテリア", "バルコニー", "ストレージ"]
                     };
 
+    
     React.useEffect(() => {
         generateTermCol();
         ScrollToBottom();
     }, [term]) 
+
+    /* -----------------------------------  */
+    /* -----------  関数宣言  -------------  */
+    /* -----------------------------------  */
 
     const selected_players = (color: string) :void => {
         if (!entryCrew.includes(color)){
@@ -61,12 +80,10 @@ export default function MainContent() {
     }
 
     const handleChangeDead = (color: string):void => {
-        if (!deadCrew.includes(color)){
-            setDeadCrew((deadCrew)　=> deadCrew.concat(color));
-        } else {
-            const new_deadCrew = deadCrew.filter(n => n !== color);
-            setDeadCrew(new_deadCrew);
-        }
+        setCrewLife((aaa) => ({
+            ...aaa,
+            [color] : !crewLife[color]
+        }));
     }
     const handleClickNewGame = ():void => {
         setTerm(0);
@@ -77,6 +94,14 @@ export default function MainContent() {
                 ...prev,
                 [players[i]] : 50
             }));
+            setCrewEmergency(prev => ({
+                ...prev,
+                [players[i]]: false
+            }));
+            setCrewLife((prev) => ({
+                ...prev,
+                [players[i]] : false
+            }));
         }
     }
     // anyで諦めた
@@ -85,6 +110,12 @@ export default function MainContent() {
         setCrewSlider(prev => ({
             ...prev,
             [crew]: event.target.value
+        }));
+    }
+    const handleChangeCrewEmergency = (event :any, crew :string ):void => {
+        setCrewEmergency(prev => ({
+            ...prev,
+            [crew]: !crewEmergency[crew]
         }));
     }
 
@@ -116,25 +147,37 @@ export default function MainContent() {
         return (
             <div className="bl_crew--row" key={index}>
                 <div className="bl_crew--headline">
-                    <img src={`./img/${deadCrew.includes(crew) ? crew+"-dead" : crew}.png`} width="100" height="130" />
+                    <Input placeholder="name" inputProps={{ 'aria-label': 'name' }} />
+                    <img src={`./img/${crewLife[crew] ? crew+"-dead" : crew}.png`} width="100" height="130" />
                     {/* <CustomSlider
                         // value={crewSlider[crew].value}
                         // value={20}
                         onChange={(e) => {handleChangeCrewSlider(e, crew)}}
                         aria-labelledby="continuous-slider"
                     /> */}
-                    <input type="range"
+                    <input 
+                        type="range"
                         name="range"
                         value={crewSlider[crew]}
                         onChange={(e) => {handleChangeCrewSlider(e, crew)}}
+                        className="bl_crew--row_range"
                     />
-                    <Input placeholder="name" inputProps={{ 'aria-label': 'name' }} />
+                    <div>
+                        <label><input type="checkbox"
+                            name="emergency_button"
+                            checked={crewEmergency[crew]}
+                            onChange={(e) => {handleChangeCrewEmergency(e, crew)}}
+                        />Emergency</label>
+                    </div>
                 </div>
                 {/* bl_crew--headline */}
             </div>
         );
-    });    
+    });
 
+    /* -----------------------------------  */
+    /* -----------  Terms    -------------  */
+    /* -----------------------------------  */
 
     const generateTermCol = () => {
         const term_row: JSX.Element[] = [];
@@ -175,19 +218,22 @@ export default function MainContent() {
                             multiline
                             rows={3}
                             variant="outlined"
+                            disabled={crewLife[entryCrew[row]]}
                         />
-                        <select name="area">
+                        <select 
+                            name="area"
+                            disabled={crewLife[entryCrew[row]]}
+                        >
                             {select_box}
                         </select>
-                        <FormControlLabel
-                            control={
-                                <Checkbox
-                                    color="default"
-                                    inputProps={{ 'aria-label': 'checkbox with default color' }}
-                                    onClick={() => {handleChangeDead(entryCrew[row])}}
-                                />}
-                            label="Dead"
-                        />
+                        <label>
+                            <input
+                                type="checkbox"
+                                disabled={crewLife[entryCrew[row]]}
+                                onChange={() => {handleChangeDead(entryCrew[row])}}
+                            />
+                            Dead
+                        </label>
                     </div>
                 </div>
             );
@@ -204,7 +250,9 @@ export default function MainContent() {
         );
     }
 
-    // main renderer
+    /* -----------------------------------  */
+    /* -----------  Renderer -------------  */
+    /* -----------------------------------  */
     return (
         <div className="ly_content">
             <div className="bl_select-player">
@@ -214,8 +262,8 @@ export default function MainContent() {
             <div className="bl_main">
                 <div className="bl_main_head">
                     <div className="bl_main_head_button">
-                        <button style={{marginTop: 10, marginBottom: 10}} onClick={() => {setTerm(term+1)}}>new term</button>
-                        <button onClick={() => { handleClickNewGame()}}>new game</button>
+                        <button style={{marginTop: 10, marginBottom: 10}} onClick={() => {setTerm(term+1)}}>New Term</button>
+                        <button onClick={() => { handleClickNewGame()}}>Reset</button>
                     </div>
                     {entry_crew_main}
                 </div>
