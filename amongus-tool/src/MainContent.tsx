@@ -8,6 +8,8 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
+import './index.css';
+import SideNav from './SideNav';
 
 
 
@@ -40,7 +42,7 @@ export default function MainContent() {
     /* -----------  変数宣言  -------------  */
     /* -----------------------------------  */
     const [term, setTerm] = useState(1);
-    const [terms, setTerms] = useState<JSX.Element[]>([]);
+    const [termCol, setTermCol] = useState<JSX.Element[]>([]);
     const [entryCrew, setEntryCrew] = useState(["black", "blue", "brown", "cyan", "green"]);
     const [deadCrew, setDeadCrew] = useState<string[]>([]);
 
@@ -62,7 +64,7 @@ export default function MainContent() {
 
     
     React.useEffect(() => {
-        generateTermCol();
+        // generateTermCol();
         ScrollToBottom();
     }, [term]) 
 
@@ -79,12 +81,6 @@ export default function MainContent() {
         }
     }
 
-    const handleChangeDead = (color: string):void => {
-        setCrewLife((aaa) => ({
-            ...aaa,
-            [color] : !crewLife[color]
-        }));
-    }
     const handleClickNewGame = ():void => {
         setTerm(0);
         setDeadCrew([]);
@@ -129,6 +125,93 @@ export default function MainContent() {
     }
 
     /* -----------------------------------  */
+    /* ----------- NEW Field -------------  */
+    /* -----------------------------------  */
+
+    const brandnew = entryCrew.map((crew_color, index) => {
+        return (
+            <div key={index} id={crew_color}>
+                <img src={`./img/${crewLife[crew_color] 
+                    ? crew_color+"-dead" : crew_color}.png`}
+                    width="50"
+                    height="50"
+                />
+                <ul>
+                    <li>
+                        <input type="radio" id={crew_color+"_1_a"} name={crew_color+"_1"} value="white"/>
+                        <label htmlFor={crew_color+"_1_a"}>
+                            <span className="check"></span>
+                        </label>
+                        
+                    </li>
+                    
+                    <li>
+                        <input type="radio" id={crew_color+"_1_b"} name={crew_color+"_1"} value="gray" />
+                        <label htmlFor={crew_color+"_1_b"}>
+                            <span className="check"></span>
+                        </label>
+                        
+                    </li>
+                    
+                    <li>
+                        <input type="radio" id={crew_color+"_1_c"} name={crew_color+"_1"} value="black" />
+                        <label htmlFor={crew_color+"_1_c"}>
+                            <span className="check"></span>
+                        </label>
+                        
+                    </li>
+                </ul>
+                <ul>
+                    <li>
+                        <input type="radio" id={crew_color+"_2_a"} name={crew_color+"_2"} value="white"/>
+                        <label htmlFor={crew_color+"_2_a"}>
+                            <span className="check"></span>
+                        </label>
+                        
+                    </li>
+                    
+                    <li>
+                        <input type="radio" id={crew_color+"_2_b"} name={crew_color+"_2"} value="gray" />
+                        <label htmlFor={crew_color+"_2_b"}>
+                            <span className="check"></span>
+                        </label>
+                        
+                    </li>
+                    
+                    <li>
+                        <input type="radio" id={crew_color+"_2_c"} name={crew_color+"_2"} value="black" />
+                        <label htmlFor={crew_color+"_2_c"}>
+                            <span className="check"></span>
+                        </label>
+                    </li>
+                </ul>
+                <ul>
+                    <li>
+                        <input type="radio" id={crew_color+"_3_a"} name={crew_color+"_3"} value="white"/>
+                        <label htmlFor={crew_color+"_3_a"}>
+                            <span className="check"></span>
+                        </label>
+                    </li>
+                    
+                    <li>
+                        <input type="radio" id={crew_color+"_3_b"} name={crew_color+"_3"} value="gray" />
+                        <label htmlFor={crew_color+"_3_b"}>
+                            <span className="check"></span>
+                        </label>
+                    </li>
+                    
+                    <li>
+                        <input type="radio" id={crew_color+"_3_c"} name={crew_color+"_3"} value="black" />
+                        <label htmlFor={crew_color+"_3_c"}>
+                            <span className="check"></span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+        );
+    })
+
+    /* -----------------------------------  */
     /* -----------JSX.Element-------------  */
     /* -----------------------------------  */
 
@@ -163,11 +246,14 @@ export default function MainContent() {
                         className="bl_crew--row_range"
                     />
                     <div>
-                        <label><input type="checkbox"
-                            name="emergency_button"
-                            checked={crewEmergency[crew]}
-                            onChange={(e) => {handleChangeCrewEmergency(e, crew)}}
-                        />Emergency</label>
+                        <label>
+                            <input type="checkbox"
+                                name="emergency_button"
+                                checked={crewEmergency[crew]}
+                                onChange={(e) => {handleChangeCrewEmergency(e, crew)}}
+                            />
+                                Emergency
+                        </label>
                     </div>
                 </div>
                 {/* bl_crew--headline */}
@@ -179,76 +265,81 @@ export default function MainContent() {
     /* -----------  Terms    -------------  */
     /* -----------------------------------  */
 
-    const generateTermCol = () => {
-        const term_row: JSX.Element[] = [];
+    // const generateTermCol = ():void => {
+    //     const term_row: JSX.Element[] = [];
 
-        for(let row=0; row< term ; row++){
-            const el = generateTermRows(row);
-            term_row.push(el);
-        }
+    //     for(let row=0; row< term ; row++){
+    //         const el = generateTermRows(row);
+    //         term_row.push(el);
+    //     }
 
-        setTerms(term_row);
-    }
+    //     setTermCol(term_row);
+    // }
 
-    let select_box = area_map.skeld.map((room, index) =>{
-        return <option value={index}>{room}</option>
-    });
-    select_box.unshift(<option value="0"></option>);
+    // let select_box = area_map.skeld.map((room, index) =>{
+    //     return <option value={index}>{room}</option>
+    // });
+    // select_box.unshift(<option value="0"></option>);
 
 
-    const generateTermRows = (col:number) => {        
-        const term_row: JSX.Element[] = [];
+    // const generateTermRows = (col:number) => {        
+    //     const term_row: JSX.Element[] = [];
 
-        term_row.push(
-            <div className="bl_term_cell_wrapper">
-                <div className="bl_term_col_head">
-                    {`Term${col + 1}`}
-                </div>
-            </div>
-        );
+    //     term_row.push(
+    //         <div className="bl_term_cell_wrapper">
+    //             <div className="bl_term_col_head">
+    //                 {`Term${col + 1}`}
+    //             </div>
+    //         </div>
+    //     );
 
-        for(let row=0; row < entryCrew.length; row++){
-            term_row.push(
-                <div className="bl_term_cell_wrapper">
-                    <div className="bl_term_cell" key={row} >
-                        <TextField
-                            id="outlined-textarea"
-                            label="free space"
-                            placeholder=""
-                            multiline
-                            rows={3}
-                            variant="outlined"
-                            disabled={crewLife[entryCrew[row]]}
-                        />
-                        <select 
-                            name="area"
-                            disabled={crewLife[entryCrew[row]]}
-                        >
-                            {select_box}
-                        </select>
-                        <label>
-                            <input
-                                type="checkbox"
-                                disabled={crewLife[entryCrew[row]]}
-                                onChange={() => {handleChangeDead(entryCrew[row])}}
-                            />
-                            Dead
-                        </label>
-                    </div>
-                </div>
-            );
-        }
+    //     for(let row=0; row < entryCrew.length; row++){
+    //         term_row.push(
+    //             <div className="bl_term_cell_wrapper">
+    //                 <div className="bl_term_cell" key={row} >
+    //                     <TextField
+    //                         id="outlined-textarea"
+    //                         label="free space"
+    //                         placeholder=""
+    //                         multiline
+    //                         rows={3}
+    //                         variant="outlined"
+    //                         disabled={crewLife[entryCrew[row]]}
+    //                     />
+    //                     <select 
+    //                         name="area"
+    //                         disabled={crewLife[entryCrew[row]]}
+    //                     >
+    //                         {select_box}
+    //                     </select>
+    //                     <label>
+    //                         <input
+    //                             type="checkbox"
+    //                             disabled={crewLife[entryCrew[row]]}
+    //                             onChange={() => {setCrewLife((prev) => ({
+    //                                     ...prev,
+    //                                     [entryCrew[row]] : !crewLife[entryCrew[row]]
+    //                                 }));
+    //                                 setTerm(term + 1);
+    //                             }}
+    //                         />
+    //                         Dead
+    //                     </label>
+    //                 </div>
+    //             </div>
+    //         );
+    //     }
 
-        return (
-            col + 1 == term ? 
-                <div className={"bl_term_row"} onClick={() => {setTerm(term + 1)}}>
-                    {term_row}
-                </div> : 
-                <div className={"bl_term_row"}>
-                    {term_row}
-                </div> 
-        );
-    }
+    //     return (
+    //         col + 1 == term ? 
+    //             <div className={"bl_term_row"} onClick={() => {setTerm(term + 1)}}>
+    //                 {term_row}
+    //             </div> : 
+    //             <div className={"bl_term_row"}>
+    //                 {term_row}
+    //             </div> 
+    //     );
+    // }
 
     /* -----------------------------------  */
     /* -----------  Renderer -------------  */
@@ -260,15 +351,21 @@ export default function MainContent() {
             </div>
 
             <div className="bl_main">
-                <div className="bl_main_head">
+                {/* <div className="bl_main_head">
                     <div className="bl_main_head_button">
                         <button style={{marginTop: 10, marginBottom: 10}} onClick={() => {setTerm(term+1)}}>New Term</button>
                         <button onClick={() => { handleClickNewGame()}}>Reset</button>
                     </div>
                     {entry_crew_main}
-                </div>
-                <div className="bl_terms_table">
-                    { terms }
+                </div> */}
+                {/* <div className="bl_terms_table">
+                    { termCol }
+                </div> */}
+                <div className="test-main">
+                    <div className="brandnew">
+                        {brandnew}
+                    </div>
+                    <SideNav crew={entryCrew}/>
                 </div>
             </div>
         </div>
