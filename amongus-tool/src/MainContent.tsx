@@ -10,6 +10,7 @@ import Select from '@material-ui/core/Select';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import './index.css';
 import SideNav from './SideNav';
+import TermsList from './TermsList';
 
 
 
@@ -42,9 +43,7 @@ export default function MainContent() {
     /* -----------  変数宣言  -------------  */
     /* -----------------------------------  */
     const [term, setTerm] = useState(1);
-    const [termCol, setTermCol] = useState<JSX.Element[]>([]);
     const [entryCrew, setEntryCrew] = useState(["black", "blue", "brown", "cyan", "green"]);
-    const [deadCrew, setDeadCrew] = useState<string[]>([]);
 
     const [crewSlider, setCrewSlider] = useState<Dict>({black : 50, blue : 50, brown : 50, cyan : 50, green : 50, lime : 50,
                                             orange : 50, pink : 50, purple : 50, red : 50, white : 50, yellow : 50 });
@@ -52,6 +51,21 @@ export default function MainContent() {
         orange : false, pink : false, purple : false, red : false, white : false, yellow : false });
     const [crewLife, setCrewLife] = useState<Emer>({black : false, blue : false, brown : false, cyan : false, green : false, lime : false,
         orange : false, pink : false, purple : false, red : false, white : false, yellow : false });
+
+    const [crewStatuses, setCrewStatuses] = useState<any>({
+        black:  {entry: true, button: false, life: false, name: ""},
+        blue:   {entry: true, button: false, life: false, name: ""},
+        brown:  {entry: true, button: false, life: false, name: ""},
+        cyan:   {entry: true, button: false, life: false, name: ""},
+        green:  {entry: true, button: false, life: false, name: ""},
+        lime:   {entry: true, button: false, life: false, name: ""},
+        orange: {entry: true, button: false, life: false, name: ""},
+        pink:   {entry: true, button: false, life: false, name: ""},
+        purple: {entry: true, button: false, life: false, name: ""},
+        red:    {entry: true, button: false, life: false, name: ""},
+        white:  {entry: true, button: false, life: false, name: ""},
+        yellow: {entry: true, button: false, life: false, name: ""},
+    });
 
 
     const players = ["black", "blue", "brown", "cyan", "green", "lime", "orange", "pink", "purple", "red", "white", "yellow"];
@@ -62,10 +76,12 @@ export default function MainContent() {
                                 "アドミン", "オフィス", "音質", "カフェテリア", "バルコニー", "ストレージ"]
                     };
 
+    const terms_num = 5;
+
     
     React.useEffect(() => {
         // generateTermCol();
-        ScrollToBottom();
+        // ScrollToBottom();
     }, [term]) 
 
     /* -----------------------------------  */
@@ -83,7 +99,6 @@ export default function MainContent() {
 
     const handleClickNewGame = ():void => {
         setTerm(0);
-        setDeadCrew([]);
         
         for(let i=0; i < players.length; i++){
             setCrewSlider(prev => ({
@@ -115,6 +130,19 @@ export default function MainContent() {
         }));
     }
 
+    const handleChangeCrewValue = (crew:string, item:string, value:any) => {
+        setCrewStatuses((prev:any) => ({
+            ...prev,
+            [crew]: Object.assign({
+                    entry: crewStatuses[crew].entry, 
+                    button: crewStatuses[crew].button, 
+                    life: crewStatuses[crew].life,
+                    name: crewStatuses[crew].name
+                }, {[item]: value}
+            )
+        }));
+    }
+
     const ScrollToBottom = ():void => {
         window.setTimeout(() => {
             const element = document.documentElement;
@@ -124,6 +152,8 @@ export default function MainContent() {
         
     }
 
+    console.log(crewStatuses);
+
     /* -----------------------------------  */
     /* ----------- NEW Field -------------  */
     /* -----------------------------------  */
@@ -131,82 +161,43 @@ export default function MainContent() {
     const brandnew = entryCrew.map((crew_color, index) => {
         return (
             <div key={index} id={crew_color}>
-                <img src={`./img/${crewLife[crew_color] 
-                    ? crew_color+"-dead" : crew_color}.png`}
-                    width="50"
-                    height="50"
-                />
-                <ul>
-                    <li>
-                        <input type="radio" id={crew_color+"_1_a"} name={crew_color+"_1"} value="white"/>
-                        <label htmlFor={crew_color+"_1_a"}>
-                            <span className="check"></span>
-                        </label>
-                        
-                    </li>
-                    
-                    <li>
-                        <input type="radio" id={crew_color+"_1_b"} name={crew_color+"_1"} value="gray" />
-                        <label htmlFor={crew_color+"_1_b"}>
-                            <span className="check"></span>
-                        </label>
-                        
-                    </li>
-                    
-                    <li>
-                        <input type="radio" id={crew_color+"_1_c"} name={crew_color+"_1"} value="black" />
-                        <label htmlFor={crew_color+"_1_c"}>
-                            <span className="check"></span>
-                        </label>
-                        
-                    </li>
-                </ul>
-                <ul>
-                    <li>
-                        <input type="radio" id={crew_color+"_2_a"} name={crew_color+"_2"} value="white"/>
-                        <label htmlFor={crew_color+"_2_a"}>
-                            <span className="check"></span>
-                        </label>
-                        
-                    </li>
-                    
-                    <li>
-                        <input type="radio" id={crew_color+"_2_b"} name={crew_color+"_2"} value="gray" />
-                        <label htmlFor={crew_color+"_2_b"}>
-                            <span className="check"></span>
-                        </label>
-                        
-                    </li>
-                    
-                    <li>
-                        <input type="radio" id={crew_color+"_2_c"} name={crew_color+"_2"} value="black" />
-                        <label htmlFor={crew_color+"_2_c"}>
-                            <span className="check"></span>
-                        </label>
-                    </li>
-                </ul>
-                <ul>
-                    <li>
-                        <input type="radio" id={crew_color+"_3_a"} name={crew_color+"_3"} value="white"/>
-                        <label htmlFor={crew_color+"_3_a"}>
-                            <span className="check"></span>
-                        </label>
-                    </li>
-                    
-                    <li>
-                        <input type="radio" id={crew_color+"_3_b"} name={crew_color+"_3"} value="gray" />
-                        <label htmlFor={crew_color+"_3_b"}>
-                            <span className="check"></span>
-                        </label>
-                    </li>
-                    
-                    <li>
-                        <input type="radio" id={crew_color+"_3_c"} name={crew_color+"_3"} value="black" />
-                        <label htmlFor={crew_color+"_3_c"}>
-                            <span className="check"></span>
-                        </label>
-                    </li>
-                </ul>
+                <div className="player-props">
+                    <img src={`./img/${crewStatuses[crew_color].life 
+                        ? crew_color+"-dead" : crew_color}.png`}
+                        width="50"
+                        height="50"
+                        alt="alt_test"
+                    />
+                    <div>
+                        <input
+                            type="text"
+                            onChange={(e) => {
+                                handleChangeCrewValue(crew_color, "name", e.target.value);
+                            }}
+                        />
+                    </div>
+                    <label>
+                        <input
+                            type="checkbox"
+                            onChange={() => {
+                                handleChangeCrewValue(crew_color, "life", !crewStatuses[crew_color].life);
+                            }}
+                        />
+                            Dead
+                    </label>
+                    <label>
+                        <input type="checkbox"
+                            name="emergency_button"
+                            checked={crewStatuses[crew_color].button}
+                            onChange={(e) => {
+                                handleChangeCrewValue(crew_color, "button", !crewStatuses[crew_color].button);
+                            }}
+                        />
+                            Emergency
+                    </label>
+                </div>
+
+                <TermsList crewColor={crew_color} num={index} terms_num={terms_num} />
             </div>
         );
     })
@@ -226,121 +217,6 @@ export default function MainContent() {
             />);
     });
 
-    const entry_crew_main = entryCrew.map((crew, index) =>{
-        return (
-            <div className="bl_crew--row" key={index}>
-                <div className="bl_crew--headline">
-                    <Input placeholder="name" inputProps={{ 'aria-label': 'name' }} />
-                    <img src={`./img/${crewLife[crew] ? crew+"-dead" : crew}.png`} width="100" height="130" />
-                    {/* <CustomSlider
-                        // value={crewSlider[crew].value}
-                        // value={20}
-                        onChange={(e) => {handleChangeCrewSlider(e, crew)}}
-                        aria-labelledby="continuous-slider"
-                    /> */}
-                    <input
-                        type="range"
-                        name="range"
-                        value={crewSlider[crew]}
-                        onChange={(e) => {handleChangeCrewSlider(e, crew)}}
-                        className="bl_crew--row_range"
-                    />
-                    <div>
-                        <label>
-                            <input type="checkbox"
-                                name="emergency_button"
-                                checked={crewEmergency[crew]}
-                                onChange={(e) => {handleChangeCrewEmergency(e, crew)}}
-                            />
-                                Emergency
-                        </label>
-                    </div>
-                </div>
-                {/* bl_crew--headline */}
-            </div>
-        );
-    });
-
-    /* -----------------------------------  */
-    /* -----------  Terms    -------------  */
-    /* -----------------------------------  */
-
-    // const generateTermCol = ():void => {
-    //     const term_row: JSX.Element[] = [];
-
-    //     for(let row=0; row< term ; row++){
-    //         const el = generateTermRows(row);
-    //         term_row.push(el);
-    //     }
-
-    //     setTermCol(term_row);
-    // }
-
-    // let select_box = area_map.skeld.map((room, index) =>{
-    //     return <option value={index}>{room}</option>
-    // });
-    // select_box.unshift(<option value="0"></option>);
-
-
-    // const generateTermRows = (col:number) => {        
-    //     const term_row: JSX.Element[] = [];
-
-    //     term_row.push(
-    //         <div className="bl_term_cell_wrapper">
-    //             <div className="bl_term_col_head">
-    //                 {`Term${col + 1}`}
-    //             </div>
-    //         </div>
-    //     );
-
-    //     for(let row=0; row < entryCrew.length; row++){
-    //         term_row.push(
-    //             <div className="bl_term_cell_wrapper">
-    //                 <div className="bl_term_cell" key={row} >
-    //                     <TextField
-    //                         id="outlined-textarea"
-    //                         label="free space"
-    //                         placeholder=""
-    //                         multiline
-    //                         rows={3}
-    //                         variant="outlined"
-    //                         disabled={crewLife[entryCrew[row]]}
-    //                     />
-    //                     <select 
-    //                         name="area"
-    //                         disabled={crewLife[entryCrew[row]]}
-    //                     >
-    //                         {select_box}
-    //                     </select>
-    //                     <label>
-    //                         <input
-    //                             type="checkbox"
-    //                             disabled={crewLife[entryCrew[row]]}
-    //                             onChange={() => {setCrewLife((prev) => ({
-    //                                     ...prev,
-    //                                     [entryCrew[row]] : !crewLife[entryCrew[row]]
-    //                                 }));
-    //                                 setTerm(term + 1);
-    //                             }}
-    //                         />
-    //                         Dead
-    //                     </label>
-    //                 </div>
-    //             </div>
-    //         );
-    //     }
-
-    //     return (
-    //         col + 1 == term ? 
-    //             <div className={"bl_term_row"} onClick={() => {setTerm(term + 1)}}>
-    //                 {term_row}
-    //             </div> : 
-    //             <div className={"bl_term_row"}>
-    //                 {term_row}
-    //             </div> 
-    //     );
-    // }
-
     /* -----------------------------------  */
     /* -----------  Renderer -------------  */
     /* -----------------------------------  */
@@ -351,21 +227,11 @@ export default function MainContent() {
             </div>
 
             <div className="bl_main">
-                {/* <div className="bl_main_head">
-                    <div className="bl_main_head_button">
-                        <button style={{marginTop: 10, marginBottom: 10}} onClick={() => {setTerm(term+1)}}>New Term</button>
-                        <button onClick={() => { handleClickNewGame()}}>Reset</button>
-                    </div>
-                    {entry_crew_main}
-                </div> */}
-                {/* <div className="bl_terms_table">
-                    { termCol }
-                </div> */}
                 <div className="test-main">
                     <div className="brandnew">
                         {brandnew}
                     </div>
-                    <SideNav crew={entryCrew}/>
+                    <SideNav crew={entryCrew} crewStatuses={crewStatuses}/>
                 </div>
             </div>
         </div>

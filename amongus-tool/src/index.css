@@ -30,13 +30,15 @@ code {
   font-size: 1.5rem;
 }
 .ly_side-nav_container {
-  width: 55px;
+  width: 80px;
 }
 .ly_side-nav_items {
   display: flex;
   flex-direction:column;
+  justify-content: space-between;
   position: sticky;
   top: 0;
+  height: 100vh;
 }
 
 .test-main {
@@ -48,6 +50,9 @@ code {
   justify-content: space-around;
   flex-wrap: wrap;
 }
+.player-props {
+  /* background-color: white; */
+}
 
 ul{
   list-style: none;
@@ -55,12 +60,27 @@ ul{
   padding: 0;
 	overflow: auto;
 }
+.term-0 {
+  background-color: rgb(246, 212, 216);
+}
+.term-1 {
+  background-color: rgb(252, 241, 211);
+}
+.term-2 {
+  background-color: rgb(238, 245, 211);
+}
+.term-3 {
+  background-color: rgb(200, 239, 234);
+}
+.term-4 {
+  background-color: rgb(203, 230, 243)
+}
 ul li{
   display: block;
   position: relative;
   float: left;
   width: 80px;
-  height: 50px;
+  padding: 10px 0px;
 }
 ul li input[type=radio]{
   position: absolute;
@@ -136,6 +156,46 @@ input[type=radio][value="black"]:checked ~ label > .check::before{
 input[type=radio]:checked ~ label{
   color: #0DFF92;
 }
+.black-link, .blue-link, .brown-link, .cyan-link, .green-link, .lime-link
+, .orange-link, .pink-link, .purple-link, .red-link, .white-link, .yellow-link {
+  text-decoration: none;
+}
+.black-link {
+  color: black;
+}
+.blue-link {
+  color: blue;
+}
+.brown-link {
+  color: brown;
+} 
+.cyan-link {
+  color: rgb(33, 218, 218);
+}
+.green-link {
+  color: green;
+} 
+.lime-link {
+  color: rgb(27, 226, 27);
+}
+.orange-link {
+  color: orange;
+} 
+.pink-link {
+  color: rgb(250, 161, 176);
+}
+.purple-link {
+  color: purple;
+} 
+.red-link {
+  color: red;
+} 
+.white-link {
+  color: #999;
+} 
+.yellow-link {
+  color: rgb(209, 209, 0);
+}
 
 
 .bl_header_title {
@@ -143,7 +203,7 @@ input[type=radio]:checked ~ label{
 }
 
 .bl_main{
-  background-color: yellowgreen;
+  background-color: #F6F4F4;
 }
 
 .bl_crew--row {
