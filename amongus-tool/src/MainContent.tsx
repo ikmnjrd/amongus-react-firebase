@@ -211,9 +211,11 @@ export default function MainContent() {
             <img 
                 key={index} 
                 src={`./img/${crew_color}.png`} 
-                width="50" 
+                width="50"
+                height="67"
                 className={ !entryCrew.includes(crew_color) ? "img-mask" : "" }
                 onClick={() => selected_players(crew_color)} 
+                alt="selected-player"
             />);
     });
 
