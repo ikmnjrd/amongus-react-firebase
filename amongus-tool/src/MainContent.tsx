@@ -1,70 +1,28 @@
 import React, {useState} from 'react';
-import Slider from '@material-ui/core/Slider';
-import Checkbox from '@material-ui/core/Checkbox';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import TextField from '@material-ui/core/TextField';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import { withStyles, makeStyles } from '@material-ui/core/styles';
 import './index.css';
 import SideNav from './SideNav';
 import TermsList from './TermsList';
-
-
-
-/* -----------------------------------  */
-/* ----------グローバル変数-------------  */
-/* -----------------------------------  */
-const CustomSlider = withStyles({
-    rail: {
-        backgroundImage: "linear-gradient(to left, #000, #fff)"
-    },
-    track: {
-        backgroundImage: "linear-gradient(to left , #999, #fff)"
-    },
-    thumb: {
-        backgroundColor: '#fff',
-        border: '2px solid #999',
-        '&:focus, &:hover, &$active': {
-            boxShadow: '0px 0px 0px 10px rgb(0 0 0 / 10%)'
-        },
-    },
-})(Slider);
-
-type Dict = { [key: string]: number };
-type Emer = { [key: string]: boolean };
-
 
 
 export default function MainContent() {
     /* -----------------------------------  */
     /* -----------  変数宣言  -------------  */
     /* -----------------------------------  */
-    const [term, setTerm] = useState(1);
     const [entryCrew, setEntryCrew] = useState(["black", "blue", "brown", "cyan", "green"]);
 
-    const [crewSlider, setCrewSlider] = useState<Dict>({black : 50, blue : 50, brown : 50, cyan : 50, green : 50, lime : 50,
-                                            orange : 50, pink : 50, purple : 50, red : 50, white : 50, yellow : 50 });
-    const [crewEmergency, setCrewEmergency] = useState<Emer>({black : false, blue : false, brown : false, cyan : false, green : false, lime : false,
-        orange : false, pink : false, purple : false, red : false, white : false, yellow : false });
-    const [crewLife, setCrewLife] = useState<Emer>({black : false, blue : false, brown : false, cyan : false, green : false, lime : false,
-        orange : false, pink : false, purple : false, red : false, white : false, yellow : false });
-
     const [crewStatuses, setCrewStatuses] = useState<any>({
-        black:  {entry: true, button: false, life: false, name: ""},
-        blue:   {entry: true, button: false, life: false, name: ""},
-        brown:  {entry: true, button: false, life: false, name: ""},
-        cyan:   {entry: true, button: false, life: false, name: ""},
-        green:  {entry: true, button: false, life: false, name: ""},
-        lime:   {entry: true, button: false, life: false, name: ""},
-        orange: {entry: true, button: false, life: false, name: ""},
-        pink:   {entry: true, button: false, life: false, name: ""},
-        purple: {entry: true, button: false, life: false, name: ""},
-        red:    {entry: true, button: false, life: false, name: ""},
-        white:  {entry: true, button: false, life: false, name: ""},
-        yellow: {entry: true, button: false, life: false, name: ""},
+        black:  {entry: true, button: false, life: false, name: "", term1: "gray", term2: "gray", term3: "gray", term4: "gray", term5: "gray"},
+        blue:   {entry: true, button: false, life: false, name: "", term1: "gray", term2: "gray", term3: "gray", term4: "gray", term5: "gray"},
+        brown:  {entry: true, button: false, life: false, name: "", term1: "gray", term2: "gray", term3: "gray", term4: "gray", term5: "gray"},
+        cyan:   {entry: true, button: false, life: false, name: "", term1: "gray", term2: "gray", term3: "gray", term4: "gray", term5: "gray"},
+        green:  {entry: true, button: false, life: false, name: "", term1: "gray", term2: "gray", term3: "gray", term4: "gray", term5: "gray"},
+        lime:   {entry: true, button: false, life: false, name: "", term1: "gray", term2: "gray", term3: "gray", term4: "gray", term5: "gray"},
+        orange: {entry: true, button: false, life: false, name: "", term1: "gray", term2: "gray", term3: "gray", term4: "gray", term5: "gray"},
+        pink:   {entry: true, button: false, life: false, name: "", term1: "gray", term2: "gray", term3: "gray", term4: "gray", term5: "gray"},
+        purple: {entry: true, button: false, life: false, name: "", term1: "gray", term2: "gray", term3: "gray", term4: "gray", term5: "gray"},
+        red:    {entry: true, button: false, life: false, name: "", term1: "gray", term2: "gray", term3: "gray", term4: "gray", term5: "gray"},
+        white:  {entry: true, button: false, life: false, name: "", term1: "gray", term2: "gray", term3: "gray", term4: "gray", term5: "gray"},
+        yellow: {entry: true, button: false, life: false, name: "", term1: "gray", term2: "gray", term3: "gray", term4: "gray", term5: "gray"},
     });
 
 
@@ -78,11 +36,13 @@ export default function MainContent() {
 
     const terms_num = 5;
 
+    console.log(crewStatuses)
+
     
     React.useEffect(() => {
         // generateTermCol();
         // ScrollToBottom();
-    }, [term]) 
+    }, []) 
 
     /* -----------------------------------  */
     /* -----------  関数宣言  -------------  */
@@ -98,36 +58,23 @@ export default function MainContent() {
     }
 
     const handleClickNewGame = ():void => {
-        setTerm(0);
-        
-        for(let i=0; i < players.length; i++){
-            setCrewSlider(prev => ({
+        players.forEach(crew => {
+            setCrewStatuses((prev:any) => ({
                 ...prev,
-                [players[i]] : 50
+                [crew]: Object.assign({
+                        entry: crewStatuses[crew].entry, 
+                        button: false, 
+                        life: false,
+                        name: crewStatuses[crew].name,
+                        term1: "gray",
+                        term2: "gray",
+                        term3: "gray",
+                        term4: "gray",
+                        term5: "gray",
+                    }, {}
+                )
             }));
-            setCrewEmergency(prev => ({
-                ...prev,
-                [players[i]]: false
-            }));
-            setCrewLife((prev) => ({
-                ...prev,
-                [players[i]] : false
-            }));
-        }
-    }
-    // anyで諦めた
-    // https://qiita.com/Takepepe/items/f1ba99a7ca7e66290f24
-    const handleChangeCrewSlider = (event :any, crew :string ):void => {
-        setCrewSlider(prev => ({
-            ...prev,
-            [crew]: event.target.value
-        }));
-    }
-    const handleChangeCrewEmergency = (event :any, crew :string ):void => {
-        setCrewEmergency(prev => ({
-            ...prev,
-            [crew]: !crewEmergency[crew]
-        }));
+        });
     }
 
     const handleChangeCrewValue = (crew:string, item:string, value:any) => {
@@ -137,7 +84,12 @@ export default function MainContent() {
                     entry: crewStatuses[crew].entry, 
                     button: crewStatuses[crew].button, 
                     life: crewStatuses[crew].life,
-                    name: crewStatuses[crew].name
+                    name: crewStatuses[crew].name,
+                    term1: crewStatuses[crew].term1,
+                    term2: crewStatuses[crew].term2,
+                    term3: crewStatuses[crew].term3,
+                    term4: crewStatuses[crew].term4,
+                    term5: crewStatuses[crew].term5,
                 }, {[item]: value}
             )
         }));
@@ -152,7 +104,6 @@ export default function MainContent() {
         
     }
 
-    console.log(crewStatuses);
 
     /* -----------------------------------  */
     /* ----------- NEW Field -------------  */
@@ -165,12 +116,13 @@ export default function MainContent() {
                     <img src={`./img/${crewStatuses[crew_color].life 
                         ? crew_color+"-dead" : crew_color}.png`}
                         width="50"
-                        height="50"
+                        height="67"
                         alt="alt_test"
                     />
                     <div>
                         <input
                             type="text"
+                            value={crewStatuses[crew_color].name}
                             onChange={(e) => {
                                 handleChangeCrewValue(crew_color, "name", e.target.value);
                             }}
@@ -179,6 +131,7 @@ export default function MainContent() {
                     <label>
                         <input
                             type="checkbox"
+                            checked={crewStatuses[crew_color].life}
                             onChange={() => {
                                 handleChangeCrewValue(crew_color, "life", !crewStatuses[crew_color].life);
                             }}
@@ -197,7 +150,13 @@ export default function MainContent() {
                     </label>
                 </div>
 
-                <TermsList crewColor={crew_color} num={index} terms_num={terms_num} />
+                <TermsList 
+                    crewColor={crew_color}
+                    num={index}
+                    terms_num={terms_num}
+                    crewStatuses={crewStatuses}
+                    handleChangeCrewValue={handleChangeCrewValue}
+                />
             </div>
         );
     })
@@ -227,13 +186,16 @@ export default function MainContent() {
             <div className="bl_select-player">
                 {entry_player_buttons}
             </div>
+            <div className="toolbox">
+                <button onClick={() => {handleClickNewGame()}}>New Game</button>
+            </div>
 
             <div className="bl_main">
                 <div className="test-main">
                     <div className="brandnew">
                         {brandnew}
                     </div>
-                    <SideNav crew={entryCrew} crewStatuses={crewStatuses}/>
+                    <SideNav crew={entryCrew} crewStatuses={crewStatuses} />
                 </div>
             </div>
         </div>

@@ -8,12 +8,11 @@ const App = () => {
 
   return (
     <div className="App">
-      <header className="ly_header">
+      <header className="ly_header" id="header">
         <div className="ly_header_inner">
           <div className="bl_header_title">
-            ikeMemo for Among Us
+            <span data-text="ikeMemo for Among Us">Memo Among Us</span>
           </div>
-
         </div>
         {/* ly_header_inner --> */}
       </header>

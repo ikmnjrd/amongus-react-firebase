@@ -18,6 +18,7 @@ code {
   background: linear-gradient(217deg, rgba(255,0,0,.8), rgba(255,0,0,0) 70.71%),
               linear-gradient(127deg, rgba(0,255,0,.8), rgba(0,255,0,0) 70.71%),
               linear-gradient(336deg, rgba(0,0,255,.8), rgba(0,0,255,0) 70.71%);
+
   height: 60px;
   display: flex;
   text-align: center;
@@ -25,12 +26,11 @@ code {
 }
 .ly_header_inner {
   max-width: 1230px;
-  padding-right: 50px;
-  padding-left: 50px;
+  padding: 0px 30px;
   font-size: 1.5rem;
 }
 .ly_side-nav_container {
-  width: 80px;
+  /* width: 80px; */
 }
 .ly_side-nav_items {
   display: flex;
@@ -39,6 +39,9 @@ code {
   position: sticky;
   top: 0;
   height: 100vh;
+  width: 80px;
+  border-left: solid 1px;
+  padding: 0px 10px;
 }
 
 .test-main {
@@ -60,27 +63,27 @@ ul{
   padding: 0;
 	overflow: auto;
 }
-.term-0 {
+.term-1 {
   background-color: rgb(246, 212, 216);
 }
-.term-1 {
+.term-2 {
   background-color: rgb(252, 241, 211);
 }
-.term-2 {
+.term-3 {
   background-color: rgb(238, 245, 211);
 }
-.term-3 {
+.term-4 {
   background-color: rgb(200, 239, 234);
 }
-.term-4 {
+.term-5 {
   background-color: rgb(203, 230, 243)
 }
 ul li{
   display: block;
   position: relative;
   float: left;
-  width: 80px;
-  padding: 10px 0px;
+  width: 30px;
+  padding: 10px 15px;
 }
 ul li input[type=radio]{
   position: absolute;
@@ -110,13 +113,13 @@ ul li .check{
 	-webkit-transition: border .25s linear;
 }
 li:hover input[type=radio][value="white"] ~ label > .check {
-  border: 5px solid rgb(50, 165, 78);
+  border: 5px solid rgb(0, 200, 50);
 }
 li:hover input[type=radio][value="gray"] ~ label > .check {
-  border: 5px solid rgb(226, 205, 17);
+  border: 5px solid rgb(200, 180, 0);
 }
 li:hover input[type=radio][value="black"] ~ label > .check {
-  border: 5px solid rgb(255, 91, 91);
+  border: 5px solid rgb(252, 90, 90);
 }
 li:hover .check {
   border: 5px solid #000;
@@ -156,9 +159,12 @@ input[type=radio][value="black"]:checked ~ label > .check::before{
 input[type=radio]:checked ~ label{
   color: #0DFF92;
 }
-.black-link, .blue-link, .brown-link, .cyan-link, .green-link, .lime-link
+.crew-status-link, .black-link, .blue-link, .brown-link, .cyan-link, .green-link, .lime-link
 , .orange-link, .pink-link, .purple-link, .red-link, .white-link, .yellow-link {
   text-decoration: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: keep-all;
 }
 .black-link {
   color: black;
@@ -196,10 +202,19 @@ input[type=radio]:checked ~ label{
 .yellow-link {
   color: rgb(209, 209, 0);
 }
-
-
-.bl_header_title {
+.crew-status-link {
+  background-color: #777;
+}
+.crew-status-life {
   color: #fff;
+}
+.crew-status-button {
+  color: #fff;
+}
+
+.bl_header_title span{
+  text-shadow: 0.5px 0 0 #fff,0 0.5px 0 #fff,-0.5px 0 0 #fff,0 -0.5px 0 #fff,2px 1px 0 #fff;
+  color: rgb(252, 80, 0);
 }
 
 .bl_main{
