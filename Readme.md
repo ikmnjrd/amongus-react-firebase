@@ -22,5 +22,3 @@ command: sh -c "cd /app/amongus-tool && yarn start"
 
 `$ docker-compose stop`
 `$ docker-compose up -d`
-
-test3
