@@ -2,7 +2,11 @@ import React, {useState} from 'react';
 import './index.css';
 import SideNav from './SideNav';
 import TermsList from './TermsList';
+import Modal from '@material-ui/core/Modal';
 
+interface StringKeyObject {
+    [key: string]: any;
+}
 
 export default function MainContent() {
     /* -----------------------------------  */
@@ -28,10 +32,11 @@ export default function MainContent() {
 
     const players = ["black", "blue", "brown", "cyan", "green", "lime", "orange", "pink", "purple", "red", "white", "yellow"];
 
-    const area_map = {  skeld: ["カフェテリア", "ウェポン", "ナビゲーション", "酸素ルーム", "シールド", "通信室", "ストレージ",
-                                "アドミン", "エレクトリカル", "ロワーエンジン", "セキュリティ", "リアクター", "アッパーエンジン",  "メッドベイ" ]
-                        ,miraHQ: ["ランチャーパッド", "医療室", "通信", "ロッカールーム", "除染通路", "リアクター", "研究室", 
-                                "アドミン", "オフィス", "音質", "カフェテリア", "バルコニー", "ストレージ"]
+    const [areaImg, setAreaImg] =useState<string>("skeld.jpg")
+    const area_map:StringKeyObject  = {  skeld: "skeld.jpg",
+                        miraHQ: "mira-hq.png",
+                        polus: "polus.jpg",
+                        airship: "airship.png",
                     };
 
     const terms_num = 5;
@@ -103,7 +108,15 @@ export default function MainContent() {
         }, 400);
         
     }
+    const [open, setOpen] = React.useState(false);
 
+    const handleOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    }
 
     /* -----------------------------------  */
     /* ----------- NEW Field -------------  */
@@ -186,8 +199,37 @@ export default function MainContent() {
             <div className="bl_select-player">
                 {entry_player_buttons}
             </div>
-            <div className="toolbox">
-                <button onClick={() => {handleClickNewGame()}}>New Game</button>
+            <div className="ly_toolbox--container">
+                <div>
+                    <button type="button" onClick={() => {handleClickNewGame()}}>
+                        New Game
+                    </button>
+                </div>
+                <div>
+                    <select onChange={(event) => {setAreaImg(area_map[event.target.value])}}>
+                        <option value="skeld" >SKELD</option>
+                        <option value="miraHQ" >MIRA HQ</option>
+                        <option value="polus" >POLUS</option>
+                        <option value="airship">AIRSHIP</option>
+                    </select>
+
+                    <button type="button" onClick={handleOpen}>
+                        Open Map
+                    </button>
+                </div>
+                <Modal
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="simple-modal-title"
+                    aria-describedby="simple-modal-description"
+                >
+                    <div className="modal-content">
+                        <img src={`./img/${areaImg}`}
+                        width={window.innerWidth}
+
+                        alt="alt_test"/>
+                    </div>
+                </Modal>
             </div>
 
             <div className="bl_main">

@@ -29,6 +29,13 @@ code {
   padding: 0px 30px;
   font-size: 1.5rem;
 }
+.ly_toolbox--container {
+  padding: 10px 30px;
+  background-color: #F6F4F4;
+  border: solid 1px #000;
+  display: flex;
+  justify-content: space-between;
+}
 .ly_side-nav_container {
   /* width: 80px; */
 }
@@ -215,6 +222,10 @@ input[type=radio]:checked ~ label{
 .bl_header_title span{
   text-shadow: 0.5px 0 0 #fff,0 0.5px 0 #fff,-0.5px 0 0 #fff,0 -0.5px 0 #fff,2px 1px 0 #fff;
   color: rgb(252, 80, 0);
+}
+.modal-content {
+  position: absolute;
+  top: 30%;
 }
 
 .bl_main{
