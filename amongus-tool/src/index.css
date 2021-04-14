@@ -37,7 +37,7 @@ code {
   justify-content: space-between;
 }
 .ly_side-nav_container {
-  /* width: 80px; */
+  background-color: #E2E0E0;
 }
 .ly_side-nav_items {
   display: flex;
@@ -49,6 +49,12 @@ code {
   width: 80px;
   border-left: solid 1px;
   padding: 0px 10px;
+}
+.icons-row {
+}
+.icons-row span {
+  display: inline-block;
+  width: 30px;
 }
 
 .test-main {
@@ -210,8 +216,15 @@ input[type=radio]:checked ~ label{
   color: rgb(209, 209, 0);
 }
 .crew-status-link {
-  background-color: #777;
 }
+.aaaa_test {
+  font-size: 26px;
+  color: #FF8C00;
+  background: -webkit-linear-gradient(0deg, #06ad1d, #FF8C00, #FF0080);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 .crew-status-life {
   color: #fff;
 }
@@ -297,7 +310,12 @@ input[type=radio]:checked ~ label{
   justify-content: space-around;
 }
 
-
+.player-area {
+  margin-top: 20px;
+}
+.status-checkboxes{
+  padding: 5px 0px 10px 0px;
+}
 
 
 .img-mask {

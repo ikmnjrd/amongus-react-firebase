@@ -124,7 +124,7 @@ export default function MainContent() {
 
     const brandnew = entryCrew.map((crew_color, index) => {
         return (
-            <div key={index} id={crew_color}>
+            <div key={index} id={crew_color} className="player-area">
                 <div className="player-props">
                     <img src={`./img/${crewStatuses[crew_color].life 
                         ? crew_color+"-dead" : crew_color}.png`}
@@ -141,26 +141,29 @@ export default function MainContent() {
                             }}
                         />
                     </div>
-                    <label>
-                        <input
-                            type="checkbox"
-                            checked={crewStatuses[crew_color].life}
-                            onChange={() => {
-                                handleChangeCrewValue(crew_color, "life", !crewStatuses[crew_color].life);
-                            }}
-                        />
-                            Dead
-                    </label>
-                    <label>
-                        <input type="checkbox"
-                            name="emergency_button"
-                            checked={crewStatuses[crew_color].button}
-                            onChange={(e) => {
-                                handleChangeCrewValue(crew_color, "button", !crewStatuses[crew_color].button);
-                            }}
-                        />
-                            Emergency
-                    </label>
+                    <div className="status-checkboxes">
+                        <label>
+                            <input
+                                type="checkbox"
+                                checked={crewStatuses[crew_color].life}
+                                onChange={() => {
+                                    handleChangeCrewValue(crew_color, "life", !crewStatuses[crew_color].life);
+                                }}
+                            />
+                                Dead
+                        </label>
+                        <label>
+                            <input type="checkbox"
+                                name="emergency_button"
+                                checked={crewStatuses[crew_color].button}
+                                onChange={(e) => {
+                                    handleChangeCrewValue(crew_color, "button", !crewStatuses[crew_color].button);
+                                }}
+                            />
+                                Emergency
+                        </label>
+                    </div>
+                    
                 </div>
 
                 <TermsList 
