@@ -27,11 +27,11 @@ export default function SideNav(props:any) {
 				</a>
 			{
 				props.crew.map((crew:string, index:number) =>{
-					let suspicious_degree = props.crewStatuses[crew].term1 === "black" ? 1 : 0;
-					suspicious_degree += props.crewStatuses[crew].term2 === "black" ? 1 : 0
-					suspicious_degree += props.crewStatuses[crew].term3 === "black" ? 1 : 0
-					suspicious_degree += props.crewStatuses[crew].term4 === "black" ? 1 : 0
-					suspicious_degree += props.crewStatuses[crew].term5 === "black" ? 1 : 0
+					let suspicious_degree = props.crewStatuses[crew].term1 === "black" ? 1 : props.crewStatuses[crew].term1 === "white" ? -0.5 : 0
+					suspicious_degree += props.crewStatuses[crew].term2 === "black" ? 1 : props.crewStatuses[crew].term2 === "white" ? -0.5 : 0
+					suspicious_degree += props.crewStatuses[crew].term3 === "black" ? 1 : props.crewStatuses[crew].term3 === "white" ? -0.5 : 0
+					suspicious_degree += props.crewStatuses[crew].term4 === "black" ? 1 : props.crewStatuses[crew].term4 === "white" ? -0.5 : 0
+					suspicious_degree += props.crewStatuses[crew].term5 === "black" ? 1 : props.crewStatuses[crew].term5 === "white" ? -0.5 : 0
 					return (
 						<a href={"#"+crew} className={crew+"-link"} key={index}>
 							<div>
