@@ -47,12 +47,13 @@ code {
   top: 0;
   height: 100vh;
   width: 80px;
-  border-left: solid 1px;
   padding: 0px 10px;
 }
-.ly_side-nav_items a:first-child,
+.ly_side-nav_items a:first-child {
+  margin: 10px 0 0 0;
+}
 .ly_side-nav_items a:last-child {
-  margin: 10px 0 10px 0;
+  margin: 0 0 10px 0;
 }
 
 .ly_side-nav_items a div {
@@ -191,37 +192,37 @@ input[type=radio]:checked ~ label{
   color: black;
 }
 .blue-link {
-  color: blue;
+  color: rgb(63, 63, 245);
 }
 .brown-link {
   color: brown;
 } 
 .cyan-link {
-  color: rgb(33, 218, 218);
+  color: rgb(60, 190, 190);
 }
 .green-link {
   color: green;
 } 
 .lime-link {
-  color: rgb(27, 226, 27);
+  color: rgb(30, 211, 30);
 }
 .orange-link {
-  color: orange;
-} 
+  color: rgb(240, 160, 13);
+}
 .pink-link {
-  color: rgb(250, 161, 176);
+  color: rgb(209, 89, 109);
 }
 .purple-link {
   color: purple;
 } 
 .red-link {
-  color: red;
+  color: rgb(228, 38, 38);
 } 
 .white-link {
   color: #999;
 } 
 .yellow-link {
-  color: rgb(209, 209, 0);
+  color: rgb(204, 204, 13);
 }
 .crew-status-link {
 }
