@@ -50,6 +50,14 @@ code {
   border-left: solid 1px;
   padding: 0px 10px;
 }
+.ly_side-nav_items a:first-child,
+.ly_side-nav_items a:last-child {
+  margin: 10px 0 10px 0;
+}
+
+.ly_side-nav_items a div {
+  margin: 0 0 3px 0;
+}
 .icons-row {
 }
 .icons-row span {
