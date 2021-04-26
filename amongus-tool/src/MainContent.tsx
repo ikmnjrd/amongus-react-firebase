@@ -228,9 +228,10 @@ export default function MainContent() {
                 >
                     <div className="modal-content">
                         <img src={`./img/${areaImg}`}
-                        width={window.innerWidth}
-
-                        alt="alt_test"/>
+                            width={window.innerWidth < window.innerHeight ? window.innerWidth : ""}
+                            height={window.innerWidth > window.innerHeight ? window.innerHeight / 2 : ""}
+                            alt="alt_test"
+                        />
                     </div>
                 </Modal>
             </div>
