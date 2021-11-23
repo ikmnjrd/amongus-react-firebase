@@ -30,11 +30,12 @@ code {
   font-size: 1.5rem;
 }
 .ly_toolbox--container {
-  padding: 10px 30px;
+  padding: 5px 0;
   background-color: #E2E0E0;
   /* border: solid 1px #000; */
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 .ly_side-nav_container {
   background-color: #E2E0E0;
@@ -100,18 +101,18 @@ ul{
 .term-5 {
   background-color: rgb(203, 230, 243)
 }
-ul li{
+.term ul li{
   display: block;
   position: relative;
   float: left;
   width: 30px;
   padding: 10px 15px;
 }
-ul li input[type=radio]{
+.term  ul li input[type=radio]{
   position: absolute;
   visibility: hidden;
 }
-ul li label{
+.term  ul li label{
   display: block;
   position: relative;
   /* margin: 10px auto; */
@@ -119,11 +120,11 @@ ul li label{
   cursor: pointer;
   transition: all 0.25s linear;
 }
-ul li:hover label {
+.term  ul li:hover label {
 	color: #777;
 }
 
-ul li .check{
+.term  ul li .check{
   display: block;
   position: relative;
   border: 5px solid #AAAAAA;
@@ -146,7 +147,7 @@ li:hover input[type=radio][value="black"] ~ label > .check {
 li:hover .check {
   border: 5px solid #000;
 }
-ul li .check::before {
+.term  ul li .check::before {
   display: block;
   position: absolute;
 	content: '';
@@ -331,4 +332,13 @@ input[type=radio]:checked ~ label{
 
 .img-mask {
   mask-image: radial-gradient(rgba(0, 0, 0, 0.26), transparent 100%);
+}
+#area-select-box {
+  margin: 0;
+  background-color: #fff;
+}
+#area-select-box * div {
+  padding-top: 7px;
+  padding-bottom: 7px;
+  padding-left: 10px;
 }

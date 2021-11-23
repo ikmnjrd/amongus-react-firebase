@@ -4,6 +4,10 @@ import SideNav from './SideNav';
 import TermsList from './TermsList';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
 
 interface StringKeyObject {
     [key: string]: any;
@@ -34,10 +38,12 @@ export default function MainContent() {
     const players = ["black", "blue", "brown", "cyan", "green", "lime", "orange", "pink", "purple", "red", "white", "yellow"];
 
     const [areaImg, setAreaImg] =useState<string>("skeld.jpg")
-    const area_map:StringKeyObject  = {  skeld: "skeld.jpg",
-                        miraHQ: "mira-hq.png",
-                        polus: "polus.jpg",
-                        airship: "airship.png",
+    const [areaName, setAreaName] =useState<string>("skeld")
+    const area_map:StringKeyObject  = {
+                        skeld: `skeld.jpg`,
+                        miraHQ: `mira-hq.png`,
+                        polus: `polus.jpg`,
+                        airship: `airship.png`,
                     };
 
     const terms_num = 5;
@@ -100,6 +106,13 @@ export default function MainContent() {
             )
         }));
     }
+
+    const handleChangeAreaImg = (val: string):void => {
+        const area_image_pic = area_map[val];
+        setAreaName(val);
+        setAreaImg(area_image_pic);
+
+    } 
 
     const ScrollToBottom = ():void => {
         window.setTimeout(() => {
@@ -205,21 +218,29 @@ export default function MainContent() {
             </div>
             <div className="ly_toolbox--container">
                 <div>
-                    <button type="button" onClick={() => {handleClickNewGame()}}>
-                        New Game
-                    </button>
+                    <Button variant="contained" onClick={handleClickNewGame}>New Game</Button>
                 </div>
                 <div>
-                    <select onChange={(event) => {setAreaImg(area_map[event.target.value])}}>
+                    {/* <select onChange={(event): void => {setAreaImg(area_map[event.target.value])}}>
                         <option value="skeld" >SKELD</option>
                         <option value="miraHQ" >MIRA HQ</option>
                         <option value="polus" >POLUS</option>
                         <option value="airship">AIRSHIP</option>
-                    </select>
-
-                    {/* <button type="button" onClick={handleOpen}>
-                        Open Map
-                    </button> */}
+                    </select> */}
+                    <FormControl id="area-select-box">
+                        <InputLabel id="field-select-label">field</InputLabel>
+                        <Select 
+                            onChange={(event:any): void => {handleChangeAreaImg(event.target.value as string)}} 
+                            value={areaName}
+                            labelId="field-select-label"
+                            label="field"
+                        >
+                            <MenuItem value="skeld">SKELD</MenuItem>
+                            <MenuItem value={`miraHQ`}>MIRA HQ</MenuItem>
+                            <MenuItem value={`polus`}>POLUS</MenuItem>
+                            <MenuItem value={`airship`}>AIRSHIP</MenuItem>
+                        </Select>
+                    </FormControl>
                     <Button variant="contained" onClick={handleOpen}>Open Map</Button>
                 </div>
                 <Modal

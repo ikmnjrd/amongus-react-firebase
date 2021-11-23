@@ -60,7 +60,7 @@ export default function TermsList(props:any) {
   }
 
 	return (
-    <div>
+    <div className="term">
       {list.map((el, index) => {return <div key={index}>{el}</div>})}
     </div>
 	);
