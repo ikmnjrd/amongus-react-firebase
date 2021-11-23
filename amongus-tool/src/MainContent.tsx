@@ -2,7 +2,8 @@ import React, {useState} from 'react';
 import './index.css';
 import SideNav from './SideNav';
 import TermsList from './TermsList';
-import Modal from '@material-ui/core/Modal';
+import Modal from '@mui/material/Modal';
+import Button from '@mui/material/Button';
 
 interface StringKeyObject {
     [key: string]: any;
@@ -216,9 +217,10 @@ export default function MainContent() {
                         <option value="airship">AIRSHIP</option>
                     </select>
 
-                    <button type="button" onClick={handleOpen}>
+                    {/* <button type="button" onClick={handleOpen}>
                         Open Map
-                    </button>
+                    </button> */}
+                    <Button variant="contained" onClick={handleOpen}>Open Map</Button>
                 </div>
                 <Modal
                     open={open}
