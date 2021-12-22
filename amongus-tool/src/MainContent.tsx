@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import './index.css';
 import SideNav from './SideNav';
 import TermsList from './TermsList';
@@ -17,6 +17,7 @@ export default function MainContent() {
     /* -----------------------------------  */
     /* -----------  変数宣言  -------------  */
     /* -----------------------------------  */
+    const [open, setOpen] = useState(false);
     const [entryCrew, setEntryCrew] = useState(["black", "blue", "brown", "cyan", "green"]);
 
     const [crewStatuses, setCrewStatuses] = useState<any>({
@@ -50,19 +51,13 @@ export default function MainContent() {
 
     console.log(crewStatuses)
 
-    
-    React.useEffect(() => {
-        // generateTermCol();
-        // ScrollToBottom();
-    }, []) 
-
     /* -----------------------------------  */
     /* -----------  関数宣言  -------------  */
     /* -----------------------------------  */
 
     const selected_players = (color: string) :void => {
         if (!entryCrew.includes(color)){
-            setEntryCrew((entryCrew)　=> entryCrew.concat(color));
+            setEntryCrew((entryCrew) => entryCrew.concat(color));
         } else {
             const new_entryCrew = entryCrew.filter(n => n !== color);
             setEntryCrew(new_entryCrew);
@@ -74,8 +69,8 @@ export default function MainContent() {
             setCrewStatuses((prev:any) => ({
                 ...prev,
                 [crew]: Object.assign({
-                        entry: crewStatuses[crew].entry, 
-                        button: false, 
+                        entry: crewStatuses[crew].entry,
+                        button: false,
                         life: false,
                         name: crewStatuses[crew].name,
                         term1: "gray",
@@ -93,8 +88,8 @@ export default function MainContent() {
         setCrewStatuses((prev:any) => ({
             ...prev,
             [crew]: Object.assign({
-                    entry: crewStatuses[crew].entry, 
-                    button: crewStatuses[crew].button, 
+                    entry: crewStatuses[crew].entry,
+                    button: crewStatuses[crew].button,
                     life: crewStatuses[crew].life,
                     name: crewStatuses[crew].name,
                     term1: crewStatuses[crew].term1,
@@ -111,23 +106,11 @@ export default function MainContent() {
         const area_image_pic = area_map[val];
         setAreaName(val);
         setAreaImg(area_image_pic);
-
-    } 
-
-    const ScrollToBottom = ():void => {
-        window.setTimeout(() => {
-            const element = document.documentElement;
-            const bottom = element.scrollHeight - element.clientHeight;
-            window.scrollTo({top: bottom, behavior: "smooth"});
-        }, 400);
-        
     }
-    const [open, setOpen] = React.useState(false);
 
     const handleOpen = () => {
         setOpen(true);
     };
-
     const handleClose = () => {
         setOpen(false);
     }
@@ -140,7 +123,7 @@ export default function MainContent() {
         return (
             <div key={index} id={crew_color} className="player-area">
                 <div className="player-props">
-                    <img src={`./img/${crewStatuses[crew_color].life 
+                    <img src={`./img/${crewStatuses[crew_color].life
                         ? crew_color+"-dead" : crew_color}.png`}
                         width="50"
                         height="67"
@@ -177,10 +160,9 @@ export default function MainContent() {
                                 Emergency
                         </label>
                     </div>
-                    
                 </div>
 
-                <TermsList 
+                <TermsList
                     crewColor={crew_color}
                     num={index}
                     terms_num={terms_num}
@@ -197,13 +179,13 @@ export default function MainContent() {
 
     const entry_player_buttons = players.map((crew_color, index) => {
         return (
-            <img 
-                key={index} 
-                src={`./img/${crew_color}.png`} 
+            <img
+                key={index}
+                src={`./img/${crew_color}.png`}
                 width="50"
                 height="67"
                 className={ !entryCrew.includes(crew_color) ? "img-mask" : "" }
-                onClick={() => selected_players(crew_color)} 
+                onClick={() => selected_players(crew_color)}
                 alt="selected-player"
             />);
     });
@@ -221,16 +203,10 @@ export default function MainContent() {
                     <Button variant="contained" onClick={handleClickNewGame}>New Game</Button>
                 </div>
                 <div>
-                    {/* <select onChange={(event): void => {setAreaImg(area_map[event.target.value])}}>
-                        <option value="skeld" >SKELD</option>
-                        <option value="miraHQ" >MIRA HQ</option>
-                        <option value="polus" >POLUS</option>
-                        <option value="airship">AIRSHIP</option>
-                    </select> */}
                     <FormControl id="area-select-box">
                         <InputLabel id="field-select-label">field</InputLabel>
-                        <Select 
-                            onChange={(event:any): void => {handleChangeAreaImg(event.target.value as string)}} 
+                        <Select
+                            onChange={(event:any): void => {handleChangeAreaImg(event.target.value as string)}}
                             value={areaName}
                             labelId="field-select-label"
                             label="field"
